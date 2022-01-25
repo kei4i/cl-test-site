@@ -104,15 +104,18 @@ body {
   min-width: 320px;
   min-height: 100%;
   font: 200 18px/27px $k2d;
-  display: flex;
-  justify-content: space-between;
-  flex-direction: column;
   color: #000;
   overflow-x: hidden;
   @media all and (max-width: 479px) {
     font-size: 14px;
     line-height: 18px;
   }
+}
+.remix-app {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  min-height: 100vh;
 }
 .main-content {
   max-width: 100vw;
@@ -191,11 +194,11 @@ h2 {
 }
 
 nav {
-  ul {
+  .ul, ul {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    li {
+    > a, li {
       a, span {
         color: #000;
         font: 300 21px/75px $k2d;
@@ -211,14 +214,14 @@ nav {
           line-height: 24px;
         }
       }
-      + li {
+      + > a, + li {
         margin-left: 46px;
       }
     }
   }
   @media all and (max-width: 479px) {
-    ul {
-      li {
+    .ul, ul {
+      li, > a {
         a, span {
           font: 300 14px/30px $k2d;
         }
@@ -275,16 +278,17 @@ header {
       width: 41px;
       height: 38px;
     }
-    ul {
-      li {
+    .ul {
+      a {
         padding: 0 24px;
-        + li {
+        display: inline-block;
+        text-decoration: none;
+        + a {
           margin-left: 0;
         }
         &.active {
           position: relative;
-          > span,
-          > a {
+          > span {
             position: relative;
             &:after {
               height: 3px;
@@ -343,7 +347,7 @@ header {
         display: block;
         margin-top: -24px;
       }
-      ul {
+      .ul {
         display: flex;
         flex-wrap: wrap;
         background: #c9f6e9;
@@ -356,7 +360,7 @@ header {
         top: 84px;
         right: -40px;
         padding: 0;
-        li {
+        a {
           padding: 0;
           transform: scale(0);
           transition: all .1s .2s linear;
@@ -392,11 +396,11 @@ header {
         }
       }
       &.active {
-        ul {
+        .ul {
           transition: all .1s .3s linear;
           width: 100vw;
           padding: 20px 40px 20px 55px;
-          li {
+          a {
             transition: all .1s .2s linear;
             transform: scale(1);
             $i: 0;
@@ -433,7 +437,7 @@ header {
         height: 22px;
         margin-top: -11px;
       }
-      ul {
+      .ul {
         height: 176px;
         max-height: 176px;
       }
@@ -443,9 +447,9 @@ header {
         }
       }
       &.active {
-        ul {
+        .ul {
           padding: 30px 15px 30px 15px;
-          li {
+          a {
             &:first-child {
               width: 50%;
             }
@@ -476,38 +480,6 @@ section {
         font: 300 18px/24px $k2d;
         margin-top: 6px;
       }
-      &.send-cv {
-        a {
-          display: flex;
-          max-width: 245px;
-          width: 100%;
-          height: 62px;
-          padding: 10px 60px 15px 18px;
-          background-color: #2e3255;
-          text-decoration: none;
-          font: 300 18px/20px $k2d;
-          color: #fff;
-          margin-top: -10px;
-          position: relative;
-          justify-content: center;
-          &:hover {
-            text-decoration: underline;
-            cursor: pointer;
-          }
-          &:before {
-            content: '';
-            display: block;
-            background: url("/images/arrow.svg") no-repeat 0 0;
-            background-size: 100% 100%;
-            position: absolute;
-            right: 22px;
-            width: 8px;
-            height: 16px;
-            top: 50%;
-            margin-top: -8px;
-          }
-        }
-      }
     }
   }
   @media all and (max-width: 1347px) {
@@ -515,25 +487,6 @@ section {
       li {
         .descr {
           margin-top: 1px;
-        }
-        &.send-cv {
-          a {
-            padding: 10px 47px 15px 18px;
-            &:before {
-              right: 10px;
-            }
-          }
-        }
-      }
-    }
-  }
-  @media all and (max-width: 639px) {
-    ul {
-      li {
-        &.send-cv {
-          a {
-            margin-top: 0;
-          }
         }
       }
     }
@@ -546,16 +499,6 @@ section {
         }
         .descr {
           font: 300 14px/16px $k2d;
-        }
-        &.send-cv {
-          a {
-            padding: 13px 30px 13px 20px;
-            font: 300 14px/20px $k2d;
-            height: 48px;
-            &:before {
-              right: 20px;
-            }
-          }
         }
       }
     }
@@ -1225,10 +1168,11 @@ section {
   ul {
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: space-between;
     flex-wrap: wrap;
     li {
       width: 33.3%;
+      display: flex;
       a {
         text-decoration: none;
         cursor: pointer;
@@ -1243,26 +1187,52 @@ section {
           display: block;
         }
       }
-      &:nth-child(-n + 3) {
-        margin-bottom: 84px;
+      .inner {
+        width: 245px;
       }
-      &:nth-child(3) {
-        .inner {
-          width: 245px;
+      &:nth-child(n + 4) {
+        margin-top: 84px;
+      }
+      &:nth-child(3n + 2) {
+        justify-content: center;
+        &:last-child {
+          justify-content: flex-end;
         }
       }
-      &:nth-child(2),
-      &:nth-child(3),
-      &:nth-child(n+5), {
-        display: flex;
-      }
-      &:nth-child(2),
-      &:nth-child(5) {
-        justify-content: center;
-      }
-      &:nth-child(3),
-      &:nth-child(6) {
+      &:nth-child(3n) {
         justify-content: flex-end;
+      }
+      &.send-cv {
+        a {
+          display: flex;
+          max-width: 245px;
+          width: 100%;
+          height: 62px;
+          padding: 10px 60px 15px 18px;
+          background-color: #2e3255;
+          text-decoration: none;
+          font: 300 18px/20px $k2d;
+          color: #fff;
+          margin-top: -10px;
+          position: relative;
+          justify-content: center;
+          &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+          }
+          &:before {
+            content: '';
+            display: block;
+            background: url("/images/arrow.svg") no-repeat 0 0;
+            background-size: 100% 100%;
+            position: absolute;
+            right: 22px;
+            width: 8px;
+            height: 16px;
+            top: 50%;
+            margin-top: -8px;
+          }
+        }
       }
     }
   }
@@ -1285,16 +1255,19 @@ section {
     }
     ul {
       li {
-        &:nth-child(-n + 3) {
-          margin-bottom: 50px;
+        &:nth-child(n + 4) {
+          margin-top: 50px;
         }
-        &:nth-child(3) {
-          .inner {
-            min-width: 221px;
+        .inner {
+          min-width: 221px;
+        }
+        &.send-cv {
+          a {
+            padding: 10px 47px 15px 18px;
+            &:before {
+              right: 10px;
+            }
           }
-        }
-        &:nth-child(3) {
-          padding-right: 0;
         }
       }
     }
@@ -1312,17 +1285,10 @@ section {
     ul {
       li {
         width: calc(50% - 221px/2);
-        &:nth-child(-n + 3) {
-          margin-bottom: 50px;
+        &:nth-child(3n) {
+          width: 221px;
         }
-        &:nth-child(3) {
-          padding-right: 0;
-          .inner {
-            min-width: 221px;
-          }
-        }
-        &:nth-child(3),
-        &:nth-child(6) {
+        &.send-cv {
           width: 221px;
         }
       }
@@ -1351,21 +1317,19 @@ section {
         .inner {
           width: auto;
         }
-        &:nth-child(-n + 5) {
-          margin-bottom: 20px;
+        &:nth-child(n + 3) {
+          margin-top: 20px;
         }
-        &:nth-child(3) {
-          .inner {
-            min-width: auto;
-            width: auto;
-          }
-        }
-        &:nth-child(2),
-        &:nth-child(3),
-        &:nth-child(5),
-        &:nth-child(6) {
+        &:nth-child(3n+2),
+        &:nth-child(3n+3) {
           justify-content: flex-start;
           width: 50%;
+        }
+        &.send-cv {
+          width: 50%;
+          a {
+            margin-top: 0;
+          }
         }
       }
     }
@@ -1393,8 +1357,18 @@ section {
     }
     ul {
       li {
-        &:nth-child(-n + 5) {
-          margin-bottom: 30px;
+        &:nth-child(n + 3) {
+          margin-top: 30px;
+        }
+        &.send-cv {
+          a {
+            padding: 13px 30px 13px 20px;
+            font: 300 14px/20px $k2d;
+            height: 48px;
+            &:before {
+              right: 20px;
+            }
+          }
         }
       }
     }
@@ -1967,10 +1941,10 @@ footer {
         a, span {
           font-size: 18px;
           line-height: 24px;
-        }
-        &.active {
-          * {
+          &.active {
             text-decoration: underline;
+            cursor: default;
+            pointer-events: none;
           }
         }
       }

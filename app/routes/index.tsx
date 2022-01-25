@@ -1,18 +1,25 @@
 import type { MetaFunction } from "remix";
+import type { LoaderFunction } from "remix";
+import {useLoaderData} from "remix";
+
+import VacanciesList from "~/components/vacancies";
+import {getTable} from "~/api/airtable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
   }
 };
+export const loader: LoaderFunction = async () => {
+  return getTable();
+};
 
 export default function Index() {
+  const vacanciesList = useLoaderData().records;
   return (
       <div>
         <section className="about-us">
           <div className="wrapper">
-            <h1>We are an IT company with a <span
-                className="marked">high level of experience</span> in <b>consulting</b>, <b>software
-              enhancement</b> and <b>business growth solutions</b>
+            <h1>We are an IT company with a <span className="marked">high level of experience</span> in <b>consulting</b>, <b>software enhancement</b> and <b>business growth solutions</b>
             </h1>
             <p>
               CADO is&nbsp;an&nbsp;outsourcing company with a&nbsp;product company approach
@@ -111,54 +118,7 @@ export default function Index() {
             </ul>
           </div>
         </section>
-        <section className="cado-looking-for">
-          <div className="wrapper">
-            <div className="header">
-              <h2>CADO is looking for</h2>
-              <div className="descr">If you are dynamic and motivated to do something big, check out our open
-                positions!
-              </div>
-              <div className="view-all"><a href="/careers">View all vacancies</a></div>
-            </div>
-            <ul>
-              <li>
-                <div className="inner">
-                  <a href="/vacancy">
-                    <span className="title">Ruby on Rails</span>
-                    <span className="descr">Senior Developer</span>
-                  </a>
-                </div>
-              </li>
-              <li>
-                <div className="inner">
-                  <div className="title">QA</div>
-                  <div className="descr">Middle Engineer</div>
-                </div>
-              </li>
-              <li>
-                <div className="inner">
-                  <div className="title">Accountant</div>
-                  <div className="descr">with experince in IT</div>
-                </div>
-              </li>
-              <li>
-                <div className="inner">
-                  <div className="title">Ruby on Rails</div>
-                  <div className="descr">Middle Developer</div>
-                </div>
-              </li>
-              <li>
-                <div className="inner">
-                  <div className="title">DevOPS</div>
-                  <div className="descr">System Engineer</div>
-                </div>
-              </li>
-              <li className="send-cv">
-                <a href="mailto:hr@cadolabs.io">Send your CV</a>
-              </li>
-            </ul>
-          </div>
-        </section>
+        <VacanciesList data={vacanciesList} />
       </div>
   );
 }

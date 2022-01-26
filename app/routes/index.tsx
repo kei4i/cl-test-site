@@ -1,19 +1,21 @@
-import type { MetaFunction } from "remix";
-import type { LoaderFunction } from "remix";
+import type {LoaderFunction, MetaFunction} from "remix";
 import {useLoaderData} from "remix";
 
-import VacanciesList from "~/components/vacancies";
+let { Miniflare } = require("miniflare");
+
 // import {getTable} from "~/api/airtable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
   }
 };
-// export const loader: LoaderFunction = async () => {
-//   return getTable();
-// };
+export const loader: LoaderFunction = async () => {
+  // return getTable();
+  return await Miniflare.getKVNamespace("pages");
+};
 
 export default function Index() {
+  console.log(useLoaderData());
   // const vacanciesList = useLoaderData().records;
   console.log('AIRTABLE_API_KEY', process.env.AIRTABLE_API_KEY)
   console.log('AIRTABLE_API_KEY1', process.env.AIRTABLE_API_KEY1)

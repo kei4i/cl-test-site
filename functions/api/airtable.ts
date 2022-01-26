@@ -19,10 +19,10 @@ export function getVariable() {
         careerData: null,
         variables: null,
     };
-    data.tableData = await PAGES.get(`AIRTABLE_API_KEY1`, {
+    data.tableData = PAGES.get(`AIRTABLE_API_KEY1`, {
         type: "json"
     });
-    data.careerData = await PAGES.get(`TEST_DATA`, {
+    data.careerData = PAGES.get(`TEST_DATA`, {
         type: "json"
     });
     data.variables = PAGES;

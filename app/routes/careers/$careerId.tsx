@@ -22,10 +22,10 @@ export const loader: LoaderFunction = async ({ params, context}) => {
     next, // used for middleware or to fetch assets
     data, // arbitrary space for passing data between middlewares
   } = context;
-  data.tableData = await getTable();
-  data.careerData = await getVacancy(params.careerId);
-  data.envData = context;
-  return data;
+  data1.tableData = await getTable();
+  data1.careerData = await getVacancy(params.careerId);
+  data1.envData = context;
+  return data1;
 };
 
 export default function DynamicCareer() {

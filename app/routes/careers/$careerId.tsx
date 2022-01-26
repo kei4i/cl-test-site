@@ -25,7 +25,7 @@ export const meta: MetaFunction = () => {
 
 
 export const loader: LoaderFunction = async ({ params, context}) => {
-  let data = {
+  let data1 = {
     tableData: null,
     careerData: null,
     envData: null

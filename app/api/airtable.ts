@@ -20,9 +20,9 @@ export type VacancyEntry = {
 };
 
 export async function getTable() {
-    const response = await fetch(`https://api.airtable.com/v0/app2oHOQICP1Dve1H/vacancies?maxRecords=99&view=Grid%20view`, {
+    const response = await fetch(`https://api.airtable.com/v0/${process.env.BASE_ID}/${process.env.VACANCY_TABLE}?maxRecords=99&view=Grid%20view`, {
             headers: {
-            Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+            Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
         },
     })
     const data = await response.json();
@@ -30,9 +30,9 @@ export async function getTable() {
 }
 
 export async function getVacancy(careerId: string) {
-    const response = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${VACANCY_TABLE}/${careerId}`, {
+    const response = await fetch(`https://api.airtable.com/v0/${process.env.BASE_ID}/${process.env.VACANCY_TABLE}/${careerId}`, {
         headers: {
-            Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+            Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
         },
     })
     const data = await response.json();
@@ -41,7 +41,7 @@ export async function getVacancy(careerId: string) {
 
 
 export async function sendMessage(message: MessageEntry) {
-    const response = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${FEEDBACK_TABLE}`, {
+    const response = await fetch(`https://api.airtable.com/v0/${process.env.BASE_ID}/${process.env.FEEDBACK_TABLE}`, {
         method: 'POST',
         body: JSON.stringify({
             "records": [
@@ -54,7 +54,7 @@ export async function sendMessage(message: MessageEntry) {
                 },
             ]}),
         headers: {
-            Authorization: `Bearer ${AIRTABLE_API_KEY}`,
+            Authorization: `Bearer ${process.env.AIRTABLE_API_KEY}`,
             'Content-Type': 'application/json',
         },
     });

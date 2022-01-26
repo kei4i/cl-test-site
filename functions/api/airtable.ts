@@ -19,11 +19,7 @@ export function getVariable() {
         careerData: null,
         variables: null,
     };
-    data.tableData = PAGES.get(`AIRTABLE_API_KEY1`, {
-        type: "json"
-    });
-    data.careerData = PAGES.get(`TEST_DATA`, {
-        type: "json"
-    });
-    data.variables = PAGES;
+    data.tableData = AIRTABLE_API_KEY;
+    data.careerData = AIRTABLE_BASE_ID;
+    data.variables = AIRTABLE_TABLE_NAME_TEXT;
 }

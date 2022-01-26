@@ -1,7 +1,7 @@
 import type { MetaFunction } from "remix";
 import type { LoaderFunction } from "remix";
 import {useLoaderData} from "remix";
-
+import {getVariable} from "functions/api/airtable";
 import VacanciesList from "~/components/vacancies";
 import {getTable, getVacancy} from "~/api/airtable";
 export const meta: MetaFunction = () => {
@@ -17,9 +17,7 @@ export let loader: LoaderFunction = async ({ params }) => {
   data.tableData = await PAGES.get(`AIRTABLE_API_KEY1`, {
     type: "json"
   });
-  data.careerData = await PAGES.get(`TEST_DATA`, {
-    type: "json"
-  });
+  data.careerData = await getVariable();
   return data;
 };
 

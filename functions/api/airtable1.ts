@@ -9,5 +9,11 @@ export async function onRequest(context) {
         data, // arbitrary space for passing data between middlewares
     } = context;
 
-    return new Response(env.AIRTABLE_API_KEY);
+    const envData = new Response(env);
+    const response = await fetch(`https://api.airtable.com/v0/${envData.BASE_ID}/${envData.VACANCY_TABLE}?maxRecords=99&view=Grid%20view`, {
+        headers: {
+            Authorization: `Bearer ${envData.AIRTABLE_API_KEY}`,
+        },
+    })
+    return await response.json();
 }

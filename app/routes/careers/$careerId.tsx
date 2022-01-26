@@ -31,17 +31,17 @@ export const loader: LoaderFunction = async ({ params,context}) => {
     careerData: null,
     envData: null
   };
-  data1.tableData = await getTable();
-  data1.careerData = await getVacancy(params.careerId);
-  data1.envData = await onRequest(context);
+  data1.tableData = await onRequest();
+  // data1.careerData = await getVacancy(params.careerId);
+  // data1.envData = await onRequest(context);
   return data1;
 };
 
 export default function DynamicCareer() {
   const vacanciesList = useLoaderData().tableData.records;
-  const careerData = useLoaderData().careerData.fields;
+  // const careerData = useLoaderData().careerData.fields;
   console.log('useloaddata', useLoaderData());
-  console.log('context', useLoaderData().envData);
+  // console.log('context', useLoaderData().envData);
   return (
       <div>
         <section className="vacancy">

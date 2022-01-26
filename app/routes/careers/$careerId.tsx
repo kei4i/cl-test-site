@@ -7,6 +7,22 @@ export const meta: MetaFunction = () => {
     title: "Cadolabs - careers",
   }
 };
+//
+// export const loader: LoaderFunction = async ({ params, context}) => {
+//   let data = {
+//     tableData: null,
+//     careerData: null,
+//     envData: null
+//   };
+//   const {
+//     env, // same as existing Worker API
+//   } = context;
+//   data1.tableData = await getTable();
+//   data1.careerData = await getVacancy(params.careerId);
+//   data1.envData = context;
+//   return data1;
+// };
+
 
 export const loader: LoaderFunction = async ({ params, context}) => {
   let data = {
@@ -27,9 +43,7 @@ export default function DynamicCareer() {
   const vacanciesList = useLoaderData().tableData.records;
   const careerData = useLoaderData().careerData.fields;
   console.log('useloaddata', useLoaderData());
-  console.log('context', useLoaderData().context);
-  console.log('context.env', useLoaderData().context.env);
-  console.log('env', useLoaderData().env);
+  console.log('context', useLoaderData().envData);
   return (
       <div>
         <section className="vacancy">

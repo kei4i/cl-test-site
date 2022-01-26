@@ -9,22 +9,14 @@ export const meta: MetaFunction = () => {
     title: "Cadolabs - about us",
   }
 };
-export let loader: LoaderFunction = async ({ params }) => {
-  let data = {
-    tableData: null,
-    careerData: null,
-  };
-  data.careerData = await getVariable();
-  return data;
-};
 
-// export const loader: LoaderFunction = async () => {
-//   return getTable();
-// };
+export const loader: LoaderFunction = async () => {
+  return getTable();
+};
 
 export default function Index() {
   console.log(useLoaderData());
-  // const vacanciesList = useLoaderData().records;
+  const vacanciesList = useLoaderData().records;
   return (
       <div>
         <section className="about-us">
@@ -128,7 +120,7 @@ export default function Index() {
             </ul>
           </div>
         </section>
-        {/*<VacanciesList data={vacanciesList} />*/}
+        <VacanciesList data={vacanciesList} />
       </div>
   );
 }

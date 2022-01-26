@@ -4,6 +4,7 @@ import {useLoaderData} from "remix";
 import {getVariable} from "functions/api/airtable";
 import VacanciesList from "~/components/vacancies";
 import {getTable, getVacancy} from "~/api/airtable";
+import {onRequest} from "../../functions/api/airtable1";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
@@ -14,17 +15,15 @@ export const meta: MetaFunction = () => {
 //   return getTable();
 // };
 
-export const loader: LoaderFunction = async ({ params, context}) => {
+export const loader: LoaderFunction = async ({ params,context}) => {
   let data1 = {
     tableData: null,
     careerData: null,
     envData: null
   };
-  const {
-    env, // same as existing Worker API
-  } = context;
-  // data1.tableData = await getTable();
-  data1.envData = context;
+  data1.tableData = await onRequest(context);
+  // data1.careerData = await getVacancy(params.careerId);
+  // data1.envData = await onRequest(context);
   return data1;
 };
 export default function Index() {

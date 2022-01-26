@@ -3,17 +3,32 @@ import type { LoaderFunction } from "remix";
 import {useLoaderData} from "remix";
 
 import VacanciesList from "~/components/vacancies";
-import {getTable} from "~/api/airtable";
+import {getTable, getVacancy} from "~/api/airtable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
   }
 };
+export let loader: LoaderFunction = async ({ params }) => {
+  let data = {
+    tableData: null,
+    careerData: null,
+  };
+  data.tableData = await PAGES.get(`AIRTABLE_API_KEY1`, {
+    type: "json"
+  });
+  data.careerData = await PAGES.get(`TEST_DATA`, {
+    type: "json"
+  });
+  return data;
+};
+
 // export const loader: LoaderFunction = async () => {
 //   return getTable();
 // };
 
 export default function Index() {
+  console.log(useLoaderData());
   // const vacanciesList = useLoaderData().records;
   return (
       <div>

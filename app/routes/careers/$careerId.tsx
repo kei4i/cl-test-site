@@ -31,7 +31,7 @@ export const loader: LoaderFunction = async ({ params,context}) => {
     careerData: null,
     envData: null
   };
-  data1.tableData = await onRequest();
+  data1.tableData = await onRequest(context);
   // data1.careerData = await getVacancy(params.careerId);
   // data1.envData = await onRequest(context);
   return data1;

@@ -10,13 +10,26 @@ export const meta: MetaFunction = () => {
   }
 };
 
-export const loader: LoaderFunction = async () => {
-  return getTable();
-};
+// export const loader: LoaderFunction = async () => {
+//   return getTable();
+// };
 
+export const loader: LoaderFunction = async ({ params, context}) => {
+  let data1 = {
+    tableData: null,
+    careerData: null,
+    envData: null
+  };
+  const {
+    env, // same as existing Worker API
+  } = context;
+  // data1.tableData = await getTable();
+  data1.envData = context;
+  return data1;
+};
 export default function Index() {
   console.log(useLoaderData());
-  const vacanciesList = useLoaderData().records;
+  // const vacanciesList = useLoaderData().records;
   return (
       <div>
         <section className="about-us">
@@ -120,7 +133,7 @@ export default function Index() {
             </ul>
           </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+        {/*<VacanciesList data={vacanciesList} />*/}
       </div>
   );
 }

@@ -8,19 +8,33 @@ export const meta: MetaFunction = () => {
   }
 };
 
-export const loader: LoaderFunction = async ({ params}) => {
+export const loader: LoaderFunction = async ({ params, context}) => {
   let data = {
     tableData: null,
     careerData: null,
+    envData: null
   };
+  const {
+    request, // same as existing Worker API
+    env, // same as existing Worker API
+    params, // if filename includes [id] or [[path]]
+    waitUntil, // same as ctx.waitUntil in existing Worker API
+    next, // used for middleware or to fetch assets
+    data, // arbitrary space for passing data between middlewares
+  } = context;
   data.tableData = await getTable();
   data.careerData = await getVacancy(params.careerId);
+  data.envData = context;
   return data;
 };
 
 export default function DynamicCareer() {
   const vacanciesList = useLoaderData().tableData.records;
   const careerData = useLoaderData().careerData.fields;
+  console.log('useloaddata', useLoaderData());
+  console.log('context', useLoaderData().context);
+  console.log('context.env', useLoaderData().context.env);
+  console.log('env', useLoaderData().env);
   return (
       <div>
         <section className="vacancy">

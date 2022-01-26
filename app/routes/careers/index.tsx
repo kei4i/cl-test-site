@@ -7,13 +7,28 @@ export const meta: MetaFunction = () => {
     title: "Cadolabs - careers",
   }
 };
+//
+// export const loader: LoaderFunction = async () => {
+//   return getTable();
+// };
 
-export const loader: LoaderFunction = async () => {
-  return getTable();
+export const loader: LoaderFunction = async ({ params, context}) => {
+  let data = {
+    tableData: null,
+    careerData: null,
+    envData: null
+  };
+  const {
+    env, // same as existing Worker API
+  } = context;
+  // data1.tableData = await getTable();
+  data1.envData = context;
+  return data1;
 };
-
 export default function CareerIndex() {
-  const vacanciesList = useLoaderData().records;
+  // const vacanciesList = useLoaderData().records;
+  console.log('useloaddata', useLoaderData());
+
   return (
       <div>
         <section className="about-career">
@@ -85,7 +100,7 @@ export default function CareerIndex() {
             </div>
           </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+        {/*<VacanciesList data={vacanciesList} />*/}
       </div>
 );
 }

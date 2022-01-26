@@ -14,9 +14,6 @@ export let loader: LoaderFunction = async ({ params }) => {
     tableData: null,
     careerData: null,
   };
-  data.tableData = await PAGES.get(`AIRTABLE_API_KEY1`, {
-    type: "json"
-  });
   data.careerData = await getVariable();
   return data;
 };

@@ -10,5 +10,7 @@ export const onRequest = async context => {
             Authorization: `Bearer ${AIRTABLE_API_KEY}`,
         },
     })
-    return await response.json();
+    const tableData = await response.json();
+    console.log(tableData)
+    return tableData;
 };

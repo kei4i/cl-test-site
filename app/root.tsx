@@ -24,7 +24,7 @@ export const meta: MetaFunction = () => {
 export function loader() {
   return {
     ENV: {
-      STRIPE_PUBLIC_KEY: process.env.STRIPE_PUBLIC_KEY
+      AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY
     }
   };
 }

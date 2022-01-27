@@ -15,17 +15,25 @@ export const meta: MetaFunction = () => {
 //   return getTable();
 // };
 
-export const loader: LoaderFunction = async ({ params,context}) => {
-  let data1 = {
-    tableData: null,
-    careerData: null,
-    envData: null
+// export const loader: LoaderFunction = async ({ params,context}) => {
+//   let data1 = {
+//     tableData: null,
+//     careerData: null,
+//     envData: null
+//   };
+//   data1.tableData = await onRequest(context);
+//   // data1.careerData = await getVacancy(params.careerId);
+//   // data1.envData = await onRequest(context);
+//   return data1;
+// };
+
+export function loader() {
+  return {
+    ENV: {
+      AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY
+    }
   };
-  data1.tableData = await onRequest(context);
-  // data1.careerData = await getVacancy(params.careerId);
-  // data1.envData = await onRequest(context);
-  return data1;
-};
+}
 export default function Index() {
   console.log(useLoaderData());
   // const vacanciesList = useLoaderData().records;

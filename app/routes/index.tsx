@@ -1,35 +1,21 @@
 import type { MetaFunction } from "remix";
-import type { LoaderFunction } from "remix";
-import {useLoaderData} from "remix";
-// import {getVariable} from "functions/api/airtable";
 import VacanciesList from "~/components/vacancies";
-// import {getVacancy} from "~/api/airtable";
-import {getTable} from "../../functions/api/airtable1";
+import {LoaderFunction, useLoaderData} from "remix";
+import {onRequest} from "../../functions/api/airtable/getTable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
   }
 };
 
-export function loader() {
-  return getTable;
+export const loader: LoaderFunction = async () => {
+  const response = onRequest();
+  const data = await response;
+  return data;
 }
 
-// export const loader: LoaderFunction = async ({ params,context}) => {
-//   let data1 = {
-//     tableData: null,
-//     careerData: null,
-//     envData: null
-//   };
-//   data1.tableData = await onRequest(context);
-//   // data1.careerData = await getVacancy(params.careerId);
-//   // data1.envData = await onRequest(context);
-//   return data1;
-// };
-
 export default function Index() {
-  console.log(useLoaderData());
-  const vacanciesList = useLoaderData().records;
+  const vacanciesList = JSON.parse(useLoaderData()).records;
   return (
       <div>
         <section className="about-us">

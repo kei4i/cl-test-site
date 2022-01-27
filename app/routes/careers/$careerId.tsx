@@ -2,7 +2,7 @@ import type { MetaFunction, LoaderFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
 import {useLoaderData, useParams} from "remix";
 import {getTable, getVacancy} from "~/api/airtable";
-import {onRequest} from "../../../functions/api/airtable1";
+import {onRequest} from "../../../functions/api/airtable/getTable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - careers",

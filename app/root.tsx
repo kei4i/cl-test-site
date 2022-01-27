@@ -6,7 +6,7 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration, useLoaderData
+  ScrollRestoration
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "~/styles/main.css";
@@ -21,17 +21,7 @@ export const meta: MetaFunction = () => {
     description: "Cadolabs. We are an IT company with a high level of experience in consulting, software enhancement and business growth solutions" };
 };
 
-export function loader() {
-  return {
-    ENV: {
-      AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY
-    }
-  };
-}
-
-
 export default function App() {
-  console.log(useLoaderData());
   return (
       <Document>
         <Layout>

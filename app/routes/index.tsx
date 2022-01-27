@@ -1,19 +1,19 @@
 import type { MetaFunction } from "remix";
 import type { LoaderFunction } from "remix";
 import {useLoaderData} from "remix";
-import {getVariable} from "functions/api/airtable";
+// import {getVariable} from "functions/api/airtable";
 import VacanciesList from "~/components/vacancies";
-import {getTable, getVacancy} from "~/api/airtable";
-import {onRequest} from "../../functions/api/airtable1";
+// import {getVacancy} from "~/api/airtable";
+import {getTable} from "../../functions/api/airtable1";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
   }
 };
 
-// export const loader: LoaderFunction = async () => {
-//   return getTable();
-// };
+export function loader() {
+  return getTable;
+}
 
 // export const loader: LoaderFunction = async ({ params,context}) => {
 //   let data1 = {
@@ -28,7 +28,8 @@ export const meta: MetaFunction = () => {
 // };
 
 export default function Index() {
-  // const vacanciesList = useLoaderData().records;
+  console.log(useLoaderData());
+  const vacanciesList = useLoaderData().records;
   return (
       <div>
         <section className="about-us">
@@ -132,7 +133,7 @@ export default function Index() {
             </ul>
           </div>
         </section>
-        {/*<VacanciesList data={vacanciesList} />*/}
+        <VacanciesList data={vacanciesList} />
       </div>
   );
 }

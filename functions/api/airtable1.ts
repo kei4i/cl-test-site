@@ -1,4 +1,4 @@
-export const onRequest = async context => {
+export async function onRequest(context) {
     // Contents of context object
     const {
         env, // same as existing Worker API
@@ -10,7 +10,20 @@ export const onRequest = async context => {
             Authorization: `Bearer ${AIRTABLE_API_KEY}`,
         },
     })
-    const tableData = await response.json();
-    console.log(tableData)
-    return tableData;
-};
+    return await response.json();
+}
+
+export const getTable = onRequest;
+
+
+// export async function onRequest(context) {
+//     // Contents of context object
+//     const {
+//         request, // same as existing Worker API
+//         env, // same as existing Worker API
+//         next, // used for middleware or to fetch assets
+//         data, // arbitrary space for passing data between middlewares
+//     } = context;
+//    console.log('context',context.url)
+//     return new Response(env.AIRTABLE_API_KEY);
+// }

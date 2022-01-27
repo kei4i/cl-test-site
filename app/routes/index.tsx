@@ -35,7 +35,6 @@ export function loader() {
   };
 }
 export default function Index() {
-  console.log(useLoaderData());
   // const vacanciesList = useLoaderData().records;
   return (
       <div>

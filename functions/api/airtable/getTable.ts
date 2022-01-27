@@ -4,15 +4,19 @@ export async function onRequest(context) {
     } = context;
 
     // const {AIRTABLE_API_KEY, BASE_ID, VACANCY_TABLE} = new Response(env);
-    const res = await fetch(`https://api.airtable.com/v0/${context.env.BASE_ID}/${context.env.VACANCY_TABLE}?maxRecords=99&view=Grid%20view`, {
+    const res = await fetch(`https://api.airtable.com/v0/${BASE_ID}/${VACANCY_TABLE}?maxRecords=99&view=Grid%20view`, {
         headers: {
-            Authorization: `Bearer ${context.env.AIRTABLE_API_KEY}`,
+            Authorization: `Bearer ${AIRTABLE_API_KEY}`,
         },
     })
     const data = await res.json();
     const info = JSON.stringify(data);
     return new Response(info);
 }
+
+
+
+// const res = await fetch('https://api.airtable.com/v0/app2oHOQICP1Dve1H/vacancies?maxRecords=3&view=Grid%20view', {
 
 // export async function onRequest() {
 //     const res = await fetch(

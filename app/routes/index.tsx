@@ -27,13 +27,6 @@ export const meta: MetaFunction = () => {
 //   return data1;
 // };
 
-export function loader() {
-  return {
-    ENV: {
-      AIRTABLE_API_KEY: process.env.AIRTABLE_API_KEY
-    }
-  };
-}
 export default function Index() {
   // const vacanciesList = useLoaderData().records;
   return (

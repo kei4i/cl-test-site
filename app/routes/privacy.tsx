@@ -1,19 +1,22 @@
 import type {MetaFunction, ActionFunction} from "remix";
 import {LoaderFunction, useLoaderData} from "remix";
 import VacanciesList from "~/components/vacancies";
-import {getTable} from "~/api/airtable";
+import {onRequest} from "../../functions/api/airtable/getTable1";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - privacy policy",
   }
 };
 
-export const loader: LoaderFunction = async () => {
-  return getTable();
-};
+export const loader: LoaderFunction = async (context) => {
+  const response = onRequest(context);
+  const data = await response;
+  return data;
+}
+
 
 export default function Privacy() {
-  const vacanciesList = useLoaderData().records;
+  const vacanciesList = JSON.parse(useLoaderData()).records;
   return (
       <div>
         <section className="content">

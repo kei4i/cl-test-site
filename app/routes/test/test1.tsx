@@ -13,7 +13,7 @@ export const meta: MetaFunction = () => {
 // };
 
 export const loader: LoaderFunction = async () => {
-  const response = await fetch("/test/test1", {
+  const response = await fetch("/api/test/test1", {
     method: "POST"
   });
   const data = await response.json();

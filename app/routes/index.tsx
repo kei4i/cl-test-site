@@ -9,13 +9,15 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async () => {
-  const response = onRequest();
+  const response = await fetch('/api/airtable/getTable');
   const data = await response;
   return data;
 }
 
 export default function Index() {
+  console.log(useLoaderData());
   const vacanciesList = JSON.parse(useLoaderData()).records;
+  console.log(vacanciesList)
   return (
       <div>
         <section className="about-us">
@@ -119,7 +121,7 @@ export default function Index() {
             </ul>
           </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+        {/*<VacanciesList data={vacanciesList} />*/}
       </div>
   );
 }

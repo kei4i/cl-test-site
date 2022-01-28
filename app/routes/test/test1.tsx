@@ -12,10 +12,10 @@ export const meta: MetaFunction = () => {
 //   return getTable();
 // };
 
-export const loader: LoaderFunction = async ({}) => {
+export const loader: LoaderFunction = async () => {
   const response = await fetch("/admin/test/test1", {
     method: "POST"
-  };
+  });
   const data = await response.json();
   return data;
 };

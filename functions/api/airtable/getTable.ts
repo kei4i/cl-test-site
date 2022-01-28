@@ -11,7 +11,8 @@ export async function onRequest(context) {
     })
     const data = await res.json();
     const info = JSON.stringify(data);
-    return new Response(info);
+    // return new Response(info);
+    return info;
 }
 
 

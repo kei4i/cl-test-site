@@ -2,7 +2,7 @@ import type { MetaFunction, LoaderFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
 import {useLoaderData, useParams} from "remix";
 import {getTable, getVacancy} from "~/api/airtable";
-import {onRequest} from "../../../functions/api/airtable/getTable";
+// import {onRequest} from "../../../functions/api/airtable/getTable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - careers",
@@ -31,10 +31,11 @@ export const loader: LoaderFunction = async ({ params,context}) => {
     careerData: null,
     envData: null
   };
-  data1.tableData = await onRequest(context);
+  // data1.tableData = await onRequest(context);
   // data1.careerData = await getVacancy(params.careerId);
   // data1.envData = await onRequest(context);
-  return data1;
+  // return data1;
+  return '123';
 };
 
 export default function DynamicCareer() {

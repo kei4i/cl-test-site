@@ -8,8 +8,8 @@ export const meta: MetaFunction = () => {
   }
 };
 
-export const loader: LoaderFunction = async (context) => {
-  const response = onRequest(context);
+export const loader: LoaderFunction = async () => {
+  const response = onRequest();
   const data = await response;
   return data;
 }

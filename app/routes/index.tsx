@@ -12,7 +12,6 @@ export const loader: LoaderFunction = async () => {
   const response = await fetch('/api/airtable/getTable', {
         method: "GET"
       });
-  );
   const data = await response;
   return data;
 }

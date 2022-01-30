@@ -1,7 +1,7 @@
 import type { MetaFunction } from "remix";
 import {LoaderFunction, useLoaderData} from "remix";
 import {Simulate} from "react-dom/test-utils";
-import contextMenu = Simulate.contextMenu;
+import VacanciesList from "~/components/vacancies";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",

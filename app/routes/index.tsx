@@ -1,7 +1,5 @@
 import type { MetaFunction } from "remix";
-import VacanciesList from "~/components/vacancies";
 import {LoaderFunction, useLoaderData} from "remix";
-import {onRequest} from "../../functions/api/airtable/getTable";
 import {Simulate} from "react-dom/test-utils";
 import contextMenu = Simulate.contextMenu;
 export const meta: MetaFunction = () => {
@@ -20,9 +18,7 @@ export const loader: LoaderFunction = async (context) => {
 }
 
 export default function Index() {
-  console.log(useLoaderData());
   const vacanciesList = JSON.parse(useLoaderData()).records;
-  console.log(vacanciesList)
   return (
       <div>
         <section className="about-us">
@@ -126,7 +122,7 @@ export default function Index() {
             </ul>
           </div>
         </section>
-        {/*<VacanciesList data={vacanciesList} />*/}
+        <VacanciesList data={vacanciesList} />
       </div>
   );
 }

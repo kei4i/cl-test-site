@@ -2,14 +2,17 @@ import type { MetaFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
 import {LoaderFunction, useLoaderData} from "remix";
 import {onRequest} from "../../functions/api/airtable/getTable";
+import {Simulate} from "react-dom/test-utils";
+import contextMenu = Simulate.contextMenu;
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
   }
 };
 
-export const loader: LoaderFunction = async () => {
-  const response = await fetch('/api/airtable/getTable', {
+export const loader: LoaderFunction = async (context) => {
+  const baseUrl = context.request.url;
+  const response = await fetch(`${baseUrl}api/airtable/getTable`, {
         method: "GET"
       });
   const data = await response;

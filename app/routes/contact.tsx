@@ -1,8 +1,7 @@
-import type {MetaFunction, ActionFunction, LoaderFunction} from "remix";
-import {Form, useLoaderData} from "remix";
-import {getTable, sendMessage} from "~/api/airtable";
-import {redirect} from "remix";
+import type {ActionFunction, LoaderFunction, MetaFunction} from "remix";
+import {Form, redirect, useLoaderData} from "remix";
 import VacanciesList from "~/components/vacancies";
+
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - contact",
@@ -12,25 +11,24 @@ export const meta: MetaFunction = () => {
 
 export const action: ActionFunction = async ({request}) => {
   const body = await request.formData();
-  console.log(body);
-  const message = {
-    name: body.get('name') as string,
-    message: body.get('message') as string,
-    email: body.get('email') as string,
-  }
-
-  await sendMessage(message);
+  const baseUrl = new URL(request.url);
+  await fetch(`${baseUrl.origin}/api/airtable/sendMessage`, {
+    method: 'POST',
+    body: body,
+  });
 
   return redirect(`/contact`);
 }
 
-export const loader: LoaderFunction = async () => {
-  return getTable();
-};
-
+export const loader: LoaderFunction = async (context) => {
+  const baseUrl = new URL(context.request.url);
+  return await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
+    method: "GET"
+  });
+}
 
 export default function Contact() {
-  const vacanciesList = useLoaderData().records;
+  const vacanciesList = JSON.parse(useLoaderData()).records;
   return (
       <div>
         <section className="contact">
@@ -61,7 +59,7 @@ export default function Contact() {
             </div>
           </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
       </div>
 );
 }

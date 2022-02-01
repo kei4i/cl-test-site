@@ -1,7 +1,6 @@
 import type {MetaFunction, ActionFunction} from "remix";
 import {LoaderFunction, useLoaderData} from "remix";
 import VacanciesList from "~/components/vacancies";
-import {onRequest} from "../../functions/api/airtable/getTable1";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - privacy policy",

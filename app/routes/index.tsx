@@ -1,7 +1,7 @@
-import type { MetaFunction } from "remix";
+import type {MetaFunction} from "remix";
 import {LoaderFunction, useLoaderData} from "remix";
-import {Simulate} from "react-dom/test-utils";
 import VacanciesList from "~/components/vacancies";
+
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - about us",
@@ -9,16 +9,15 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async (context) => {
-  const baseUrl = context.request.url;
-  const response = await fetch(`${baseUrl}api/airtable/getTable`, {
-        method: "GET"
-      });
-  const data = await response;
-  return data;
+  const baseUrl = new URL(context.request.url);
+  return await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
+    method: "GET"
+  });
 }
 
 export default function Index() {
   const vacanciesList = JSON.parse(useLoaderData()).records;
+  console.log(vacanciesList);
   return (
       <div>
         <section className="about-us">
@@ -122,7 +121,7 @@ export default function Index() {
             </ul>
           </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
       </div>
   );
 }

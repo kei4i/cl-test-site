@@ -1,53 +1,32 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
 import {useLoaderData, useParams} from "remix";
-import {getTable, getVacancy} from "~/api/airtable";
-// import {onRequest} from "../../../functions/api/airtable/getTable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - careers",
   }
 };
-//
-// export const loader: LoaderFunction = async ({ params, context}) => {
-//   let data = {
-//     tableData: null,
-//     careerData: null,
-//     envData: null
-//   };
-//   const {
-//     env, // same as existing Worker API
-//   } = context;
-//   data1.tableData = await getTable();
-//   data1.careerData = await getVacancy(params.careerId);
-//   data1.envData = context;
-//   return data1;
-// };
-
-
-export const loader: LoaderFunction = async ({ params,context}) => {
-  let data1 = {
-    tableData: null,
-    careerData: null,
-    envData: null
-  };
-  // data1.tableData = await onRequest(context);
-  // data1.careerData = await getVacancy(params.careerId);
-  // data1.envData = await onRequest(context);
-  // return data1;
-  return '123';
-};
+export const loader: LoaderFunction = async ({request, params}) => {
+  const baseUrl = new URL(request.url);
+  let data= {list: '', currentPageId: ''};
+  data.list = await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
+    method: "GET"
+  });
+  data.currentPageId = params.careerId;
+  return data;
+}
 
 export default function DynamicCareer() {
-  const vacanciesList = useLoaderData().tableData.records;
-  // const careerData = useLoaderData().careerData.fields;
-  console.log('useloaddata', useLoaderData());
-  // console.log('context', useLoaderData().envData);
+  console.log('usedata',JSON.parse(useLoaderData().list));
+  // console.log('3', JSON.parse(useLoaderData().list));
+  // console.log('2', JSON.parse(useLoaderData().list));
+  // console.log('1', JSON.parse(useLoaderData().list).records);
+  // const vacanciesList = JSON.parse(useLoaderData().list).records;
   return (
       <div>
         <section className="vacancy">
           <div className="wrapper">
-            <h1>{careerData.page_title}</h1>
+            <h1>{vacanciesListcareerData.page_title}</h1>
             <div className="descr" dangerouslySetInnerHTML={{__html: careerData.page_short_descr}}/>
           </div>
         </section>
@@ -133,7 +112,7 @@ export default function DynamicCareer() {
             </ul>
           </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
       </div>
 );
 }

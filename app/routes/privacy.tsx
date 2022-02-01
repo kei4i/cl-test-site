@@ -1,4 +1,4 @@
-import type {MetaFunction, ActionFunction} from "remix";
+import type {MetaFunction} from "remix";
 import {LoaderFunction, useLoaderData} from "remix";
 import VacanciesList from "~/components/vacancies";
 export const meta: MetaFunction = () => {
@@ -8,11 +8,11 @@ export const meta: MetaFunction = () => {
 };
 
 export const loader: LoaderFunction = async (context) => {
-  const response = onRequest(context);
-  const data = await response;
-  return data;
+  const baseUrl = new URL(context.request.url);
+  return await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
+    method: "GET"
+  });
 }
-
 
 export default function Privacy() {
   const vacanciesList = JSON.parse(useLoaderData()).records;
@@ -81,7 +81,7 @@ export default function Privacy() {
 
             </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
       </div>
 );
 }

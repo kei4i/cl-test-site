@@ -5,7 +5,6 @@ export async function onRequestPost({request, env}) {
       message: body.get('message') as string,
       email: body.get('email') as string,
     }
-    console.log(message);
     const response = await fetch(`https://api.airtable.com/v0/${env.BASE_ID}/${env.FEEDBACK_TABLE}`, {
         method: 'POST',
         body: JSON.stringify({
@@ -23,6 +22,5 @@ export async function onRequestPost({request, env}) {
             'Content-Type': 'application/json',
         },
     });
-    console.log('response', await response.json());
     return response.json();
 }

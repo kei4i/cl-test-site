@@ -1,34 +1,20 @@
 import type { MetaFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
 import {LoaderFunction, useLoaderData} from "remix";
-import {getTable} from "~/api/airtable";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - careers",
   }
 };
-//
-// export const loader: LoaderFunction = async () => {
-//   return getTable();
-// };
 
-export const loader: LoaderFunction = async ({ params, context}) => {
-  let data = {
-    tableData: null,
-    careerData: null,
-    envData: null
-  };
-  const {
-    env, // same as existing Worker API
-  } = context;
-  // data1.tableData = await getTable();
-  data1.envData = context;
-  return data1;
-};
+export const loader: LoaderFunction = async (context) => {
+  const baseUrl = new URL(context.request.url);
+  return await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
+    method: "GET"
+  });
+}
 export default function CareerIndex() {
-  // const vacanciesList = useLoaderData().records;
-  console.log('useloaddata', useLoaderData());
-
+  const vacanciesList = JSON.parse(useLoaderData()).records;
   return (
       <div>
         <section className="about-career">
@@ -100,7 +86,7 @@ export default function CareerIndex() {
             </div>
           </div>
         </section>
-        {/*<VacanciesList data={vacanciesList} />*/}
+        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
       </div>
 );
 }

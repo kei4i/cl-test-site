@@ -17,7 +17,6 @@ export const loader: LoaderFunction = async (context) => {
 
 export default function Index() {
   const vacanciesList = JSON.parse(useLoaderData()).records;
-  console.log(vacanciesList);
   return (
       <div>
         <section className="about-us">

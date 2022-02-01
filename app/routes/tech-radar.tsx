@@ -1,19 +1,21 @@
-import type {MetaFunction, ActionFunction} from "remix";
+import type {MetaFunction} from "remix";
 import {LoaderFunction, useLoaderData} from "remix";
 import VacanciesList from "~/components/vacancies";
-import {getTable} from "~/api/airtable";
 export const meta: MetaFunction = () => {
   return {
-    title: "Cadolabs - cookie policy",
+    title: "Cadolabs - teach radar",
   }
 };
 
-export const loader: LoaderFunction = async () => {
-  return getTable();
-};
+export const loader: LoaderFunction = async (context) => {
+    const baseUrl = new URL(context.request.url);
+    return await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
+        method: "GET"
+    });
+}
 
 export default function Privacy() {
-  const vacanciesList = useLoaderData().records;
+    const vacanciesList = JSON.parse(useLoaderData()).records;
   return (
       <div>
         <section className="tech-radar">
@@ -21,7 +23,7 @@ export default function Privacy() {
             <iframe src="https://cadolabs-techradar.s3-eu-west-1.amazonaws.com/index.html" height="1200" width="100%" title="Tech radar"></iframe>
           </div>
         </section>
-        <VacanciesList data={vacanciesList} />
+          {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
       </div>
     );
 }

@@ -16,14 +16,9 @@ export const action: ActionFunction = async ({request}) => {
     method: 'POST',
     body: body,
   })
-  //     .then(response => {return response.json()})
-  // .catch(e => {e.message});
-  // return redirect(`/contact`);
-  console.log('response', response);
-  console.log('response-json', response.json());
-  console.log('await response-json', await response.json());
-
-  return response.json();
+      .then(response => {return response.json()})
+  .catch(e => {e.message});
+  return redirect(`/contact`);
 }
 
 export const loader: LoaderFunction = async (context) => {
@@ -34,8 +29,7 @@ export const loader: LoaderFunction = async (context) => {
 }
 
 export default function Contact() {
-  console.log()
-  // const vacanciesList = JSON.parse(useLoaderData()).records;
+  const vacanciesList = JSON.parse(useLoaderData()).records;
   return (
       <div>
         <section className="contact">
@@ -66,7 +60,7 @@ export default function Contact() {
             </div>
           </div>
         </section>
-        {/*{vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}*/}
+        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
       </div>
 );
 }

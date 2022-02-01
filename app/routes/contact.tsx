@@ -12,12 +12,18 @@ export const meta: MetaFunction = () => {
 export const action: ActionFunction = async ({request}) => {
   const body = await request.formData();
   const baseUrl = new URL(request.url);
-  await fetch(`${baseUrl.origin}/api/airtable/sendMessage`, {
+  const response = await fetch(`${baseUrl.origin}/api/airtable/sendMessage`, {
     method: 'POST',
     body: body,
-  }).then(response => {return response.json()})
-  .catch(e => {e.message});
-  return redirect(`/contact`);
+  })
+  //     .then(response => {return response.json()})
+  // .catch(e => {e.message});
+  // return redirect(`/contact`);
+  console.log('response', response);
+  console.log('response-json', response.json());
+  console.log('await response-json', await response.json());
+
+  return response.json();
 }
 
 export const loader: LoaderFunction = async (context) => {
@@ -28,7 +34,8 @@ export const loader: LoaderFunction = async (context) => {
 }
 
 export default function Contact() {
-  const vacanciesList = JSON.parse(useLoaderData()).records;
+  console.log()
+  // const vacanciesList = JSON.parse(useLoaderData()).records;
   return (
       <div>
         <section className="contact">
@@ -59,7 +66,7 @@ export default function Contact() {
             </div>
           </div>
         </section>
-        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
+        {/*{vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}*/}
       </div>
 );
 }

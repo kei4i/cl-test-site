@@ -1,4 +1,8 @@
-export async function onRequestPost({request, env}) {
+export async function onRequestPost(context) {
+    const {
+        request,
+        env, // same as existing Worker API
+    } = context;
     const body = await request.formData();
     const message = {
       name: body.get('name') as string,

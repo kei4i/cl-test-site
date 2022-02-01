@@ -1,6 +1,5 @@
-export async function onRequestPost(context) {
+export async function onRequestPost({request, context}) {
     const {
-        request,
         env, // same as existing Worker API
     } = context;
     const body = await request.formData();

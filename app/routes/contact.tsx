@@ -15,8 +15,8 @@ export const action: ActionFunction = async ({request}) => {
   await fetch(`${baseUrl.origin}/api/airtable/sendMessage`, {
     method: 'POST',
     body: body,
-  });
-
+  }).then(response => {return response.json()})
+  .catch(e => {e.message});
   return redirect(`/contact`);
 }
 

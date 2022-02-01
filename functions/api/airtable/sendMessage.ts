@@ -1,6 +1,7 @@
-export async function onRequestPost({request, context}) {
+export async function onRequestPost(context) {
     const {
         env, // same as existing Worker API
+        request
     } = context;
     const body = await request.formData();
     const message = {
@@ -8,7 +9,7 @@ export async function onRequestPost({request, context}) {
       message: body.get('message') as string,
       email: body.get('email') as string,
     }
-    const response = await fetch(`https://api.airtable.com/v0/${env.BASE_ID}/${env.FEEDBACK_TABLE}`, {
+    return await fetch(`https://api.airtable.com/v0/${env.BASE_ID}/${env.FEEDBACK_TABLE}`, {
         method: 'POST',
         body: JSON.stringify({
             "records": [
@@ -19,11 +20,11 @@ export async function onRequestPost({request, context}) {
                         "message": message.message,
                     }
                 },
-            ]}),
+            ]
+        }),
         headers: {
             Authorization: `Bearer ${env.AIRTABLE_API_KEY}`,
             'Content-Type': 'application/json',
         },
     });
-    return response.json();
 }

@@ -74,6 +74,7 @@ function Document({
           <meta property="og:image:type" content="image/png"/>
           <meta property="og:image:width" content="180" />
           <meta property="og:image:height" content="180" />
+          <script defer="defer" src="js/main.js"/>
           <Meta />
           <Links />
         </head>

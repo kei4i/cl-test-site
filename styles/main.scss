@@ -198,6 +198,14 @@ nav {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    > a {
+      + > a {
+        margin-left: 46px;
+      }
+    }
+    li + li {
+      margin-left: 46px;
+    }
     > a, li {
       a, span {
         color: #000;
@@ -213,9 +221,6 @@ nav {
         a, span {
           line-height: 24px;
         }
-      }
-      + > a, + li {
-        margin-left: 46px;
       }
     }
   }

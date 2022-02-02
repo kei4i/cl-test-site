@@ -8,25 +8,24 @@ export const meta: MetaFunction = () => {
 };
 export const loader: LoaderFunction = async ({request, params}) => {
   const baseUrl = new URL(request.url);
-  let data= {list: '', currentPageId: ''};
-  data.list = await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
+  let data= {list: null, currentPageId: null};
+  const response = await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
     method: "GET"
   });
+  data.list = await response.json();
   data.currentPageId = params.careerId;
   return data;
 }
 
 export default function DynamicCareer() {
-  console.log('usedata',JSON.parse(useLoaderData().list));
-  // console.log('3', JSON.parse(useLoaderData().list));
-  // console.log('2', JSON.parse(useLoaderData().list));
-  // console.log('1', JSON.parse(useLoaderData().list).records);
-  // const vacanciesList = JSON.parse(useLoaderData().list).records;
+  const careerDataRaw = useLoaderData().list.records.filter(arr => arr.id ===useLoaderData().currentPageId);
+  const careerData = careerDataRaw[0].fields;
+  const vacanciesList = useLoaderData().list.records;
   return (
       <div>
         <section className="vacancy">
           <div className="wrapper">
-            <h1>{vacanciesListcareerData.page_title}</h1>
+            <h1>{careerData.page_title}</h1>
             <div className="descr" dangerouslySetInnerHTML={{__html: careerData.page_short_descr}}/>
           </div>
         </section>

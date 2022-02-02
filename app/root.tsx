@@ -74,7 +74,7 @@ function Document({
           <meta property="og:image:type" content="image/png"/>
           <meta property="og:image:width" content="180" />
           <meta property="og:image:height" content="180" />
-          <script defer="defer" src="js/main.js"/>
+          <script defer="defer" src="/js/main.js"/>
           <Meta />
           <Links />
         </head>
@@ -91,6 +91,7 @@ function Document({
 function Layout({ children }: React.PropsWithChildren<{}>) {
   let activeClassName = "active";
   let menuIsActive = false;
+  console.log(Meta());
   return (
       <div className="remix-app">
         <div className="main-content">
@@ -143,6 +144,8 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
           <div className="wrapper">
             <div className="adress">
               411, 4/F, Austin Tower, 22-26, Austin Av., <br />Tsimshatsui, Kowloon, Hong Kong
+              <br/><br/>
+              9 Spyrou Kyprianou Av. Office 1, 3070, Limassol, Cyprus
             </div>
             <nav className="menu">
               <ul>

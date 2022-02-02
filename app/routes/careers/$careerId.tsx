@@ -23,6 +23,9 @@ export default function DynamicCareer() {
   const vacanciesList = useLoaderData().list.records;
   return (
       <div>
+        <div className="wrapper back-to-page">
+          <a href="/careers">back to All Vacancies</a>
+        </div>
         <section className="vacancy">
           <div className="wrapper">
             <h1>{careerData.page_title}</h1>

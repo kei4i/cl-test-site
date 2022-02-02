@@ -10,6 +10,7 @@ import {
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "~/styles/main.css";
+import {useLocation} from "react-router";
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: styles }];
@@ -91,7 +92,7 @@ function Document({
 function Layout({ children }: React.PropsWithChildren<{}>) {
   let activeClassName = "active";
   let menuIsActive = false;
-  console.log(Meta());
+  let menuClass = useLocation().pathname === '/' ? 'menu decorated' : 'menu';
   return (
       <div className="remix-app">
         <div className="main-content">
@@ -100,7 +101,7 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
               <a href="/">
                 <img src="/images/cado_logo.svg" alt="Cadolabs" width="135" height="78" />
               </a>
-              <nav className="menu decorated">
+              <nav className={menuClass}>
                 <div className="menu-toggler" onClick={ () => menuIsActive=true }></div>
                 <div className="ul">
                   <NavLink

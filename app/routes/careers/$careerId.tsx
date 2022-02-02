@@ -8,17 +8,18 @@ export const meta: MetaFunction = () => {
 };
 export const loader: LoaderFunction = async ({request, params}) => {
   const baseUrl = new URL(request.url);
-  let data= {list: null, currentPageId: null};
+  let data= {list: null, currentSlug: null};
   const response = await fetch(`${baseUrl.origin}/api/airtable/getTable`, {
     method: "GET"
   });
   data.list = await response.json();
-  data.currentPageId = params.careerId;
+  data.list.records.map(item=>item.slug = item.fields.slug);
+  data.currentSlug = params.careerId;
   return data;
 }
 
 export default function DynamicCareer() {
-  const careerDataRaw = useLoaderData().list.records.filter(arr => arr.id ===useLoaderData().currentPageId);
+  const careerDataRaw = useLoaderData().list.records.filter(arr => arr.slug ===useLoaderData().currentSlug);
   const careerData = careerDataRaw[0].fields;
   const vacanciesList = useLoaderData().list.records;
   return (

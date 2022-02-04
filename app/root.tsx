@@ -183,7 +183,9 @@ function Layout({ children }: React.PropsWithChildren<{}>) {
                     <span>Contacts</span>
                   </NavLink>
                   <a href="https://github.com/Cado-Labs" rel="noreferrer" target="_blank">
-                    <img src="/images/github.svg" alt="github" width="83" height="19" />
+                    <span>
+                      <img src="/images/github.svg" alt="github" width="83" height="19" />
+                    </span>
                   </a>
                   <NavLink
                       to="/tech-radar"

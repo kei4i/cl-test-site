@@ -1,9 +1,14 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
 import {useLoaderData} from "remix";
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction = ({ data }) => {
+  if (!data) {
+    return {title: "Oops..."}
+  }
+  const findCurrentVacancy = data.list.records.filter(arr => arr.slug === data.currentSlug);
+  const currentVacancy = findCurrentVacancy[0].fields;
   return {
-    title: "Cadolabs - careers",
+    title: currentVacancy.page_title ? `${currentVacancy.page_title}` : "Vacancy"
   }
 };
 export const loader: LoaderFunction = async ({request, params}) => {

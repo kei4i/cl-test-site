@@ -1,6 +1,6 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
-import {useLoaderData, useParams} from "remix";
+import {useLoaderData} from "remix";
 export const meta: MetaFunction = () => {
   return {
     title: "Cadolabs - careers",
@@ -15,6 +15,9 @@ export const loader: LoaderFunction = async ({request, params}) => {
   data.list = await response.json();
   data.list.records.map(item=>item.slug = item.fields.slug);
   data.currentSlug = params.careerId;
+  if (!data.list.records.filter(arr => arr.slug === params.careerId).length) {
+    throw new Response("Not Found", { status: 404 });
+  }
   return data;
 }
 

@@ -6,7 +6,7 @@ import {
   Meta,
   Outlet,
   Scripts,
-  ScrollRestoration
+  ScrollRestoration, useCatch
 } from "remix";
 import type { MetaFunction } from "remix";
 import styles from "~/styles/main.css";
@@ -28,6 +28,63 @@ export default function App() {
         <Layout>
           <Outlet />
         </Layout>
+      </Document>
+  );
+}
+
+export function ErrorBoundary({ error }: { error: Error }) {
+  console.error(error);
+  return (
+      <Document title="Error!">
+        <Layout>
+        <div>
+          <section className="page-not-found">
+            <div className="wrapper">
+              <h1>There was an error</h1>
+              <p>{error.message}</p>
+            </div>
+          </section>
+        </div>
+        </Layout>
+      </Document>
+  );
+}
+
+export function CatchBoundary() {
+  const caught = useCatch();
+
+  let message;
+  switch (caught.status) {
+    case 401:
+      message = (
+          <p>
+            Oops! Looks like you tried to visit a page that you do not have access
+            to.
+          </p>
+      );
+      break;
+    case 404:
+      message = (
+          <p>Oops! Looks like you tried to visit a page that does not exist.</p>
+      );
+      break;
+
+    default:
+      throw new Error(caught.data || caught.statusText);
+  }
+
+  return (
+      <Document title={`${caught.status} ${caught.statusText}`}>
+          <Layout>
+            <div>
+              <section className="page-not-found">
+                <div className="wrapper">
+                  <h1><b>404</b> Page Not Found</h1>
+                  <p>{message}</p>
+                </div>
+              </section>
+            </div>
+          </Layout>
       </Document>
   );
 }

@@ -47,7 +47,7 @@ export default function Contact() {
                     <input type="text" placeholder="Your name" name="name" required />
                   </div>
                   <div className="input-outer">
-                    <input type="email" placeholder="Email" name="email" required />
+                    <input type="email" placeholder="Email" name="email" pattern="^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,10}$" required />
                   </div>
                   <div className="input-outer">
                     <textarea name="message" id="" cols="30" rows="7" placeholder="Message" required />

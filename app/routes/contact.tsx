@@ -41,7 +41,7 @@ export default function Contact() {
             <div className="contact-form">
               <div className="contact-form-inner">
                 <h2>Let’s talk</h2>
-                <p>For1 any inquiries please contact us at <a href="mailto:info@cadolabs.io">info@cadolabs.io</a></p>
+                <p>For any inquiries please contact us at <a href="mailto:info@cadolabs.io">info@cadolabs.io</a></p>
                 <Form reloadDocument method="post">
                   <div className="input-outer">
                     <input type="text" placeholder="Your name" name="name" required />

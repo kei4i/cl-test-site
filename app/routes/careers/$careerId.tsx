@@ -30,7 +30,6 @@ export const loader: LoaderFunction = async ({request, params}) => {
 export default function DynamicCareer() {
   const careerDataRaw = useLoaderData().list.records.filter(arr => arr.slug ===useLoaderData().currentSlug);
   const careerData = careerDataRaw[0].fields;
-  const vacanciesList = useLoaderData().list.records;
   let fetcher = useFetcher();
   useEffect(() => {
     fetcher.load('/airtable/getTable');

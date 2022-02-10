@@ -9,8 +9,8 @@ export async function onRequestPost(context) {
       message: bodyData.get('message') as string,
       email: bodyData.get('email') as string,
     }
-
-    return await fetch(`https://api.airtable.com/v0/${env.BASE_ID}/${env.FEEDBACK_TABLE}`, {
+    return await fetch(`https://api.airtable.com/v0/app2oHOQICP1Dve1H/Table_1`, {
+    // return await fetch(`https://api.airtable.com/v0/${env.BASE_ID}/${env.FEEDBACK_TABLE}`, {
         method: 'POST',
         body: JSON.stringify({
             "records": [
@@ -24,7 +24,8 @@ export async function onRequestPost(context) {
             ]
         }),
         headers: {
-            Authorization: `Bearer ${env.AIRTABLE_API_KEY}`,
+            Authorization: `Bearer keyFVAbr7P6w5rzBy`,
+            // Authorization: `Bearer ${env.AIRTABLE_API_KEY}`,
             'Content-Type': 'application/json',
         },
     });

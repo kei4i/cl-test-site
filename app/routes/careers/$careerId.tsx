@@ -1,6 +1,7 @@
 import type { MetaFunction, LoaderFunction } from "remix";
 import VacanciesList from "~/components/vacancies";
-import {useLoaderData} from "remix";
+import {useFetcher, useLoaderData} from "remix";
+import {useEffect} from "react";
 export const meta: MetaFunction = ({ data }) => {
   if (!data) {
     return {title: "Oops..."}
@@ -30,6 +31,10 @@ export default function DynamicCareer() {
   const careerDataRaw = useLoaderData().list.records.filter(arr => arr.slug ===useLoaderData().currentSlug);
   const careerData = careerDataRaw[0].fields;
   const vacanciesList = useLoaderData().list.records;
+  let fetcher = useFetcher();
+  useEffect(() => {
+    fetcher.load('/airtable/getTable');
+  }, []);
   return (
       <div>
         <div className="wrapper back-to-page">
@@ -131,7 +136,7 @@ export default function DynamicCareer() {
             </ul>
           </div>
         </section>
-        {vacanciesList ? <VacanciesList data={vacanciesList} /> : ''}
+        {fetcher.data ? <VacanciesList data={fetcher.data} /> : null}
       </div>
 );
 }
